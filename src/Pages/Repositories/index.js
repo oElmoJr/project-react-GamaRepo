@@ -9,26 +9,39 @@ export default function Repositories() {
   const Navigate = useNavigate();
 
   useEffect(() => {
-    let repositoriesName = localStorage.getItem("repositoriesName");
-    if (repositoriesName !== null) {
-      repositoriesName = JSON.parse(repositoriesName);
-      setRepositories(repositoriesName);
+    let repositoriesInfo = localStorage.getItem("repositoriesInfo");
+    if (repositoriesInfo !== null) {
+      repositoriesInfo = JSON.parse(repositoriesInfo);
+      setRepositories(repositoriesInfo);
       localStorage.clear();
     } else {
       Navigate("/");
     }
+    // eslint-disable-next-line
   }, []);
 
   return (
     <S.Container>
       <S.Title>Repositórios</S.Title>
-      <S.List>
-        {repositories.map((repository) => {
-          return (
-            <S.LitItem key={repository}>Repositório: {repository}</S.LitItem>
-          );
-        })}
-      </S.List>
+      <S.ListBox>
+        <S.List>
+          {repositories.map((repository) => {
+            return (
+              <S.LinkItem
+                key={repository.id}
+                href={repository.html_url}
+                target={"_blank"}
+                rel="noopener noreferrer"
+              >
+                <S.LitItem>
+                  <span>{repository.name}</span>
+                  <span>{repository.language}</span>
+                </S.LitItem>
+              </S.LinkItem>
+            );
+          })}
+        </S.List>
+      </S.ListBox>
       <S.LinkHome to="/">Voltar</S.LinkHome>
     </S.Container>
   );

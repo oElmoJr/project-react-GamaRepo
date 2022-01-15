@@ -13,17 +13,17 @@ function App() {
 
   function handlePesquisa() {
     axios
-      .get(`https://api.github.com/users/${usuario}/repos `)
+      .get(`https://api.github.com/users/${usuario}/repos`)
       .then((Response) => {
         const repositories = Response.data;
-        const repositoriesName = [];
+        const repositoriesInfo = [];
         repositories.map((repository) => {
-          repositoriesName.push(repository.name);
+          repositoriesInfo.push(repository);
           return "";
         });
         localStorage.setItem(
-          "repositoriesName",
-          JSON.stringify(repositoriesName)
+          "repositoriesInfo",
+          JSON.stringify(repositoriesInfo)
         );
         setErro(false);
         navigate("/repositories ");
